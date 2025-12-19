@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic File Recovery Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Forensic Deleted File Recovery Tool</h1>
+            <p class="subtitle">Recover deleted files from disk images using signature-based file carving</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <h2>Upload Disk Image</h2>
+                <p class="description">Select a disk image file (.img, .dsk, .dd, .iso, .bin) to scan for recoverable files.</p>
+                
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="fileInput" name="file" accept=".img,.dsk,.dd,.iso,.bin" required>
+                        <label for="fileInput" class="file-label">Choose Disk Image</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Start Carving</button>
+                </form>
+
+                <div id="uploadStatus" class="status-message" style="display: none;"></div>
+                <div id="progressBar" class="progress-bar" style="display: none;">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <h3>Supported File Types</h3>
+                <ul class="file-types-list">
+                    <li><strong>JPEG</strong> - .jpg images</li>
+                    <li><strong>PNG</strong> - .png images</li>
+                    <li><strong>PDF</strong> - .pdf documents</li>
+                    <li><strong>ZIP</strong> - .zip archives</li>
+                </ul>
+                
+                <h3>Important Notes</h3>
+                <ul class="notes-list">
+                    <li>The disk image is read-only and will not be modified.</li>
+                    <li>File carving may take several minutes depending on the image size.</li>
+                    <li>Original filenames are not preserved; recovered files are renamed sequentially.</li>
+                    <li>Maximum file size: 500MB</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Forensic File Recovery Tool. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showStatus('Please select a file', 'error');
+                return;
+            }
+            
+            // Show progress indicators
+            const statusDiv = document.getElementById('uploadStatus');
+            const progressDiv = document.getElementById('progressBar');
+            
+            statusDiv.style.display = 'block';
+            progressDiv.style.display = 'block';
+            statusDiv.textContent = 'Uploading and processing...';
+            statusDiv.className = 'status-message processing';
+            
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    statusDiv.textContent = `Success! Found ${data.total_files} recovered files.`;
+                    statusDiv.className = 'status-message success';
+                    
+                    // Store results in session storage for results page
+                    sessionStorage.setItem('recoveredFiles', JSON.stringify(data.recovered_files));
+                    
+                    // Redirect to results page after a short delay
+                    setTimeout(() => {
+                        window.location.href = '/results';
+                    }, 1500);
+                } else {
+                    statusDiv.textContent = `Error: ${data.error || 'Unknown error'}`;
+                    statusDiv.className = 'status-message error';
+                }
+            } catch (error) {
+                statusDiv.textContent = `Error: ${error.message}`;
+                statusDiv.className = 'status-message error';
+            } finally {
+                progressDiv.style.display = 'none';
+            }
+        });
+        
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('uploadStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
