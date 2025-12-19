@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recovery Results - Forensic File Recovery Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Recovery Results</h1>
+            <p class="subtitle">Recovered files from disk image carving</p>
+        </header>
+
+        <main>
+            <section class="results-section">
+                <div class="results-header">
+                    <h2>Recovered Files</h2>
+                    <div class="action-buttons">
+                        <button id="refreshBtn" class="btn btn-secondary">Refresh</button>
+                        <button id="clearBtn" class="btn btn-danger">Clear Results</button>
+                        <a href="/" class="btn btn-primary">New Scan</a>
+                    </div>
+                </div>
+
+                <div id="fileTableContainer" class="file-table-container">
+                    <table id="fileTable" class="file-table">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Type</th>
+                                <th>Size (bytes)</th>
+                                <th>Offset</th>
+                                <th>Hash (SHA-256)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fileTableBody">
+                            <tr class="loading">
+                                <td colspan="6">Loading recovered files...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="emptyMessage" class="empty-message" style="display: none;">
+                    <p>No recovered files found. Try uploading a disk image.</p>
+                    <a href="/" class="btn btn-primary">Upload Disk Image</a>
+                </div>
+
+                <div id="statusMessage" class="status-message" style="display: none;"></div>
+            </section>
+
+            <section class="info-section">
+                <h3>About the Results</h3>
+                <p>The table above displays all files recovered from the disk image using signature-based file carving. Each recovered file is assigned a sequential number and can be downloaded for further analysis.</p>
+                
+                <h3>File Information</h3>
+                <ul class="notes-list">
+                    <li><strong>File Name:</strong> Sequential identifier assigned during recovery (e.g., recovered_1.jpg)</li>
+                    <li><strong>Type:</strong> File type detected based on file signature</li>
+                    <li><strong>Size:</strong> File size in bytes</li>
+                    <li><strong>Offset:</strong> Position in the disk image where the file was found</li>
+                    <li><strong>Hash:</strong> SHA-256 hash for file verification and integrity checking</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Forensic File Recovery Tool. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Load recovered files on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRecoveredFiles();
+        });
+
+        async function loadRecoveredFiles() {
+            try {
+                const response = await fetch('/api/recovered-files');
+                const files = await response.json();
+                
+                const tableBody = document.getElementById('fileTableBody');
+                const emptyMessage = document.getElementById('emptyMessage');
+                const fileTableContainer = document.getElementById('fileTableContainer');
+                
+                if (files.length === 0) {
+                    fileTableContainer.style.display = 'none';
+                    emptyMessage.style.display = 'block';
+                } else {
+                    fileTableContainer.style.display = 'block';
+                    emptyMessage.style.display = 'none';
+                    
+                    tableBody.innerHTML = '';
+                    
+                    files.forEach(file => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="filename">${escapeHtml(file.filename)}</td>
+                            <td class="type">${escapeHtml(file.type)}</td>
+                            <td class="size">${formatFileSize(file.size)}</td>
+                            <td class="offset">${file.offset || 'N/A'}</td>
+                            <td class="hash">${file.hash ? file.hash.substring(0, 16) + '...' : 'N/A'}</td>
+                            <td class="action">
+                                <a href="/download/${encodeURIComponent(file.filename)}" class="btn btn-small">Download</a>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                }
+            } catch (error) {
+                showStatus(`Error loading files: ${error.message}`, 'error');
+            }
+        }
+
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            loadRecoveredFiles();
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', async function() {
+            if (confirm('Are you sure you want to delete all recovered files? This action cannot be undone.')) {
+                try {
+                    const response = await fetch('/api/clear-results', {
+                        method: 'POST'
+                    });
+                    
+                    if (response.ok) {
+                        showStatus('All recovered files have been cleared.', 'success');
+                        setTimeout(() => {
+                            loadRecoveredFiles();
+                        }, 1000);
+                    } else {
+                        showStatus('Error clearing results.', 'error');
+                    }
+                } catch (error) {
+                    showStatus(`Error: ${error.message}`, 'error');
+                }
+            }
+        });
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.style.display = 'block';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
