@@ -1,0 +1,78 @@
+2025-12-13 16:56:10,071 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.50:5000
+2025-12-13 16:56:10,073 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-13 16:56:10,087 - INFO -  * Restarting with stat
+2025-12-13 16:56:10,958 - WARNING -  * Debugger is active!
+2025-12-13 16:56:10,977 - INFO -  * Debugger PIN: 110-194-062
+2025-12-13 16:56:28,177 - INFO - 127.0.0.1 - - [13/Dec/2025 16:56:28] "GET / HTTP/1.1" 200 -
+2025-12-13 16:56:28,352 - INFO - 127.0.0.1 - - [13/Dec/2025 16:56:28] "GET /static/style.css HTTP/1.1" 200 -
+2025-12-13 16:56:32,268 - INFO - 127.0.0.1 - - [13/Dec/2025 16:56:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-17 18:35:39,272 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.50:5000
+2025-12-17 18:35:39,274 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-17 18:35:39,291 - INFO -  * Restarting with stat
+2025-12-17 18:35:39,922 - WARNING -  * Debugger is active!
+2025-12-17 18:35:39,931 - INFO -  * Debugger PIN: 110-194-062
+2025-12-17 18:35:50,149 - INFO - 127.0.0.1 - - [17/Dec/2025 18:35:50] "GET / HTTP/1.1" 200 -
+2025-12-17 18:35:50,430 - INFO - 127.0.0.1 - - [17/Dec/2025 18:35:50] "GET /static/style.css HTTP/1.1" 200 -
+2025-12-17 18:35:50,451 - INFO - 127.0.0.1 - - [17/Dec/2025 18:35:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-17 18:36:01,341 - INFO - Starting file carving on: uploads\test_image.img
+2025-12-17 18:36:01,343 - INFO - Timestamp: 2025-12-17 18:36:01
+2025-12-17 18:36:01,389 - INFO - Recovered: recovered_jpg_1.jpg | Type: jpg | Offset: 50000 | Size: 24.00 B
+2025-12-17 18:36:01,416 - INFO - File carving completed
+2025-12-17 18:36:01,417 - INFO - Total files recovered: 1
+2025-12-17 18:36:01,417 - INFO - Timestamp: 2025-12-17 18:36:01
+2025-12-17 18:36:01,426 - INFO - 127.0.0.1 - - [17/Dec/2025 18:36:01] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-12-17 18:36:01,564 - INFO - 127.0.0.1 - - [17/Dec/2025 18:36:01] "GET /results HTTP/1.1" 200 -
+2025-12-17 18:36:01,616 - INFO - 127.0.0.1 - - [17/Dec/2025 18:36:01] "GET /static/style.css HTTP/1.1" 200 -
+2025-12-17 18:36:07,274 - INFO - 127.0.0.1 - - [17/Dec/2025 18:36:07] "GET /download/recovered_jpg_1.jpg HTTP/1.1" 200 -
+2025-12-17 18:47:45,495 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.50:5000
+2025-12-17 18:47:45,499 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-17 18:47:45,520 - INFO -  * Restarting with stat
+2025-12-17 18:47:46,246 - WARNING -  * Debugger is active!
+2025-12-17 18:47:46,260 - INFO -  * Debugger PIN: 110-194-062
+2025-12-17 18:47:58,214 - INFO - 127.0.0.1 - - [17/Dec/2025 18:47:58] "GET / HTTP/1.1" 200 -
+2025-12-17 18:47:58,558 - INFO - 127.0.0.1 - - [17/Dec/2025 18:47:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-12-17 18:48:47,507 - INFO - Starting file carving on: uploads\test_image.img
+2025-12-17 18:48:47,512 - INFO - Timestamp: 2025-12-17 18:48:47
+2025-12-17 18:48:47,586 - INFO - Recovered: recovered_jpg_1.jpg | Type: jpg | Offset: 50000 | Size: 24.00 B
+2025-12-17 18:48:47,651 - INFO - File carving completed
+2025-12-17 18:48:47,655 - INFO - Total files recovered: 1
+2025-12-17 18:48:47,659 - INFO - Timestamp: 2025-12-17 18:48:47
+2025-12-17 18:48:47,672 - INFO - 127.0.0.1 - - [17/Dec/2025 18:48:47] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-12-17 18:48:47,746 - INFO - 127.0.0.1 - - [17/Dec/2025 18:48:47] "GET /results HTTP/1.1" 200 -
+2025-12-17 18:48:47,846 - INFO - 127.0.0.1 - - [17/Dec/2025 18:48:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-12-17 18:49:08,664 - INFO - 127.0.0.1 - - [17/Dec/2025 18:49:08] "GET /download/recovered_jpg_1.jpg HTTP/1.1" 200 -
+2025-12-20 18:34:17,604 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.50:5000
+2025-12-20 18:34:17,606 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-20 18:34:17,621 - INFO -  * Restarting with stat
+2025-12-20 18:34:18,166 - WARNING -  * Debugger is active!
+2025-12-20 18:34:18,176 - INFO -  * Debugger PIN: 110-194-062
+2025-12-20 18:34:26,154 - INFO - 127.0.0.1 - - [20/Dec/2025 18:34:26] "GET / HTTP/1.1" 200 -
+2025-12-20 18:34:26,335 - INFO - 127.0.0.1 - - [20/Dec/2025 18:34:26] "GET /static/style.css HTTP/1.1" 200 -
+2025-12-20 18:34:29,472 - INFO - 127.0.0.1 - - [20/Dec/2025 18:34:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-20 18:34:49,943 - INFO - Starting file carving on: uploads\test_disk.img
+2025-12-20 18:34:49,944 - INFO - Timestamp: 2025-12-20 18:34:49
+2025-12-20 18:34:49,961 - INFO - Recovered: recovered_jpg_1.jpg | Type: jpg | Offset: 100000 | Size: 4.90 KB
+2025-12-20 18:34:49,963 - INFO - Recovered: recovered_png_1.png | Type: png | Offset: 500000 | Size: 2.95 KB
+2025-12-20 18:34:49,965 - INFO - Recovered: recovered_pdf_1.pdf | Type: pdf | Offset: 1000000 | Size: 2.01 KB
+2025-12-20 18:34:49,972 - INFO - Recovered: recovered_zip_1.zip | Type: zip | Offset: 2000000 | Size: 1.48 KB
+2025-12-20 18:34:49,976 - INFO - Recovered: recovered_docx_1.docx | Type: docx | Offset: 2000000 | Size: 1.48 KB
+2025-12-20 18:34:49,982 - INFO - Recovered: recovered_gif_1.gif | Type: gif | Offset: 3000000 | Size: 815.00 B
+2025-12-20 18:34:49,988 - INFO - Recovered: recovered_jpg_2.jpg | Type: jpg | Offset: 4000000 | Size: 4.41 KB
+2025-12-20 18:34:50,032 - INFO - File carving completed
+2025-12-20 18:34:50,033 - INFO - Total files recovered: 7
+2025-12-20 18:34:50,034 - INFO - Timestamp: 2025-12-20 18:34:50
+2025-12-20 18:34:50,049 - INFO - 127.0.0.1 - - [20/Dec/2025 18:34:50] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-12-20 18:34:50,115 - INFO - 127.0.0.1 - - [20/Dec/2025 18:34:50] "GET /results HTTP/1.1" 200 -
+2025-12-20 18:34:50,146 - INFO - 127.0.0.1 - - [20/Dec/2025 18:34:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
